@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.management.common.vo.Result;
 import com.management.sys.entity.User;
 import com.management.sys.service.IUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ import java.util.Map;
  * @author Xiaoyang
  * @since 2023-04-19
  */
+@Api(tags = {"用户接口"})
 @RestController  //返回json数据，如果注释是@Controller 是返回视图
 @RequestMapping("/user")
 public class UserController {
@@ -35,6 +38,7 @@ public class UserController {
     }
 
     //登录
+    @ApiOperation("用户登录")
     @PostMapping("/login")                  //如果不加注解，user过来是一个json字符串，所以加一个注解，可以帮忙转换
     public Result<Map<String, Object>> login(@RequestBody User user){
 
@@ -97,7 +101,7 @@ public class UserController {
      */
     @PostMapping
     public Result<?> addUser(@RequestBody User user){
-        userService.save(user);
+        userService.addUser(user);
         return Result.success("Add Success!");
     }
     /**
@@ -109,7 +113,7 @@ public class UserController {
      */
     @PutMapping
     public Result<?> updateUser(@RequestBody User user){
-        userService.updateById(user);
+        userService.updateUser(user);
         return Result.success("Update Success!");
     }
     /**
@@ -121,7 +125,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public Result<User> getUserById(@PathVariable("id") Integer id){
-        User user = userService.getById(id);
+        User user = userService.getUserById(id);
         return Result.success(user);
     }
     /**
@@ -133,7 +137,7 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     public Result<User> deleteUserById(@PathVariable("id") Integer id){
-        userService.removeById(id);
+        userService.deleteUserById(id);
         return Result.success("Deleted");
     }
 

@@ -2,9 +2,9 @@ server:
   port: 9999
 spring:
   datasource:
-    username: root
-    password: personal
-    url: jdbc:mysql:///final_project
+    username: admin
+    password: guanfei24
+    url: jdbc:mysql://csci-test.cmso6a4fd2ju.us-east-2.rds.amazonaws.com:3306/mydb?characterEncoding=utf-8
   redis:
     port: 6379
     host: localhost
@@ -19,3 +19,4 @@ mybatis-plus:
       logic-delete-field: deleted
       logic-not-delete-value: 0
       logic-delete-value: 1
+  type-aliases-package: com.management.*.entity
