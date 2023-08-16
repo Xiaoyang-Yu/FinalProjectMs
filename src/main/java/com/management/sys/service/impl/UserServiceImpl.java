@@ -112,8 +112,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //写入用户角色表
         List<Integer> roleIdList = user.getRoleIdList();
         if (roleIdList != null) {
-            for (Integer roleId : roleIdList) {
-                userRoleMapper.insert(new UserRole(null, user.getId(), roleId));
+            if (roleIdList.size() != 0) {
+                for (Integer roleId : roleIdList) {
+                    userRoleMapper.insert(new UserRole(null, user.getId(), roleId));
+                }
+            }else { //默认给角色4
+                userRoleMapper.insert(new UserRole(null, user.getId(), 4));
             }
         }
     }
