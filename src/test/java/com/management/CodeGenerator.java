@@ -15,9 +15,9 @@ import java.util.Collections;
  */
 public class CodeGenerator {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://csci-test.cmso6a4fd2ju.us-east-2.rds.amazonaws.com:3306/mydb";
-        String username = "admin";
-        String password = "guanfei24";
+        String url = "jdbc:mysql://gateway01.us-west-2.prod.aws.tidbcloud.com:4000/mydb";
+        String username = "3zmK2DyYdCPQg3A.root";
+        String password = "ZhXjlIOcMWJZow3x";
         String moduleName = "sys";
         String mapperLocation = "C:\\Users\\46515\\IdeaProjects\\FinalProject\\ms\\src\\main\\resources\\mapper\\" + moduleName;
         String tables = "user_role"; //可以多张表，用，分割
