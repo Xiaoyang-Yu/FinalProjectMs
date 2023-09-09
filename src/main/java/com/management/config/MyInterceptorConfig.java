@@ -30,8 +30,8 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
                         "/swagger-resources/**",
                         "/v3/**",
                         "/sys/diet/**",
-                        "/role/**"
-
+                        "/role/**",
+                        "/sys/bodyFatPercentage/**"
                 );
     }
 }
