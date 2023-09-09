@@ -37,4 +37,5 @@ Instructions on how to use them in your own application are linked below.
 |add| /bodyFatPercentage | POST|```{"uid":3, "height": 7, "weight": 100, "bfp": 10, "bmi":30, "age": 23, "sex": 0}```|```{"code":20000,"message":"Add Success!","data":{"id":1,"uid":3,"height":7,"weight":100,"bfp":10,"bmi":30,"createTime":null,"age":23,"sex":0}}```||
 |update|/bodyFatPercentage | PUT |```{"id":3,"uid":3, "height": 7, "weight": 100, "bfp": 10, "bmi":30, "age": 23, "sex": 0}```|```{"code":20000,"message":"Update Success!","data":null}```|Must include "id"|
 | getByID | /bodyFatPercentage/${id} |GET|id|```{"code":20000,"message":"success","data":{"id":1,"uid":3,"height":7,"weight":100,"bfp":10,"bmi":30,"createTime":[2023,9,9,15,17,14],"age":23,"sex":0}```}
+|getBodyFatPercentageList|/bodyFatPercentage/list|Get|uid, pageNo, pageSize|pageNo default 1, pageSize default 10
 
