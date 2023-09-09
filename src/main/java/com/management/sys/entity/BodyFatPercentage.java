@@ -33,8 +33,6 @@ public class BodyFatPercentage implements Serializable {
 
     private LocalDateTime createTime;
 
-    private String bfpl;
-
     private Integer age;
 
     private Integer sex;
@@ -88,13 +86,7 @@ public class BodyFatPercentage implements Serializable {
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
-    public String getBfpl() {
-        return bfpl;
-    }
 
-    public void setBfpl(String bfpl) {
-        this.bfpl = bfpl;
-    }
     public Integer getAge() {
         return age;
     }
@@ -120,7 +112,6 @@ public class BodyFatPercentage implements Serializable {
             ", bfp=" + bfp +
             ", bmi=" + bmi +
             ", createTime=" + createTime +
-            ", bfpl=" + bfpl +
             ", age=" + age +
             ", sex=" + sex +
         "}";
