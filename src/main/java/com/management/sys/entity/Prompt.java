@@ -60,6 +60,7 @@ public class Prompt implements Serializable {
     private Integer goalType;
 
     private Integer uid;
+    private Integer bfpid;
 
     public Integer getId() {
         return id;
@@ -125,6 +126,13 @@ public class Prompt implements Serializable {
         this.uid = uid;
     }
 
+    public Integer getBFPid() {
+        return bfpid;
+    }
+
+    public void setBFPid(Integer bfpid) {
+        this.bfpid = bfpid;
+    }
     @Override
     public String toString() {
         return "Prompt{" +
@@ -137,6 +145,7 @@ public class Prompt implements Serializable {
             ", disease=" + disease +
             ", goalType=" + goalType +
             ", uid=" + uid +
+            ", uid=" + bfpid +
         "}";
     }
 }
