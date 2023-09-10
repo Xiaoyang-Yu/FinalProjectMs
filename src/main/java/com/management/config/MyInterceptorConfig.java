@@ -31,7 +31,10 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
                         "/v3/**",
                         "/sys/diet/**",
                         "/role/**",
-                        "/sys/bodyFatPercentage/**"
+                        "/sys/bodyFatPercentage/**",
+                        "/sys/course/**",
+                        "/sys/exercise/**",
+                        "/sys/prompt/**"
                 );
     }
 }

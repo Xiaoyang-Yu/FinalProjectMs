@@ -4,14 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.management.common.vo.Result;
 import com.management.sys.entity.BodyFatPercentage;
-import com.management.sys.entity.Diet;
-import com.management.sys.entity.User;
 import com.management.sys.service.IBodyFatPercentageService;
-import com.management.sys.service.IDietService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +47,7 @@ public class BodyFatPercentageController {
      * @auther: Xiaoyang Yu
      */
     @PutMapping
-    public Result<?> updateUser(@RequestBody BodyFatPercentage bodyfatpercentage){
+    public Result<?> updateBodyFatPercentage(@RequestBody BodyFatPercentage bodyfatpercentage){
         bodyfatpercentageService.updateById(bodyfatpercentage);
         return Result.success("Update Success!");
     }
@@ -85,7 +80,7 @@ public class BodyFatPercentageController {
         LambdaQueryWrapper<BodyFatPercentage> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(uid > 0, BodyFatPercentage::getUid, uid);
         //按ID排序
-        wrapper.orderByDesc(BodyFatPercentage::getCreateTime);
+        wrapper.orderByDesc(BodyFatPercentage::getId);
 
         Page<BodyFatPercentage> page = new Page<>(pageNo, pageSize);
 
