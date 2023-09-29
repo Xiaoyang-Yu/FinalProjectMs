@@ -2,6 +2,9 @@ package com.management.sys.mapper;
 
 import com.management.sys.entity.BodyFatPercentage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.management.sys.entity.v_Recommend;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-09-09
  */
 public interface BodyFatPercentageMapper extends BaseMapper<BodyFatPercentage> {
+    public List<v_Recommend> getBMPinfo(Integer uid);
 
 }

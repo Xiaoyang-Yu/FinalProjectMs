@@ -61,6 +61,7 @@ public class Prompt implements Serializable {
 
     private Integer uid;
     private Integer bfpid;
+    private Integer score;
 
     public Integer getId() {
         return id;
@@ -133,6 +134,14 @@ public class Prompt implements Serializable {
     public void setBFPid(Integer bfpid) {
         this.bfpid = bfpid;
     }
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "Prompt{" +
@@ -146,6 +155,7 @@ public class Prompt implements Serializable {
             ", goalType=" + goalType +
             ", uid=" + uid +
             ", uid=" + bfpid +
+            ", score="+ score +
         "}";
     }
 }

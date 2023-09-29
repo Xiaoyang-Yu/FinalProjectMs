@@ -2,13 +2,19 @@ package com.management.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.management.API.Recommend;
 import com.management.common.vo.Result;
+import com.management.sys.entity.Attributes;
 import com.management.sys.entity.BodyFatPercentage;
+import com.management.sys.entity.Person;
+import com.management.sys.entity.v_Recommend;
 import com.management.sys.service.IBodyFatPercentageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -88,6 +94,39 @@ public class BodyFatPercentageController {
         Map<String, Object> data = new HashMap<>();
         data.put("total", page.getTotal());
         data.put("rows", page.getRecords());
+        return Result.success(data);
+    }
+    @GetMapping("/recommendList")
+    public Result<Map<String, Object>> getBMPinfo(@RequestParam(value = "uid") Integer uid,
+                                                  @RequestParam(value = "username") String username){
+        Map<String, Object> data = new HashMap<>();
+
+        List<v_Recommend> vRecommendList = bodyfatpercentageService.getBFP(uid);
+        List<Person> users = new ArrayList<>();
+        for (v_Recommend vRecommend:vRecommendList) {
+            List<Attributes> attributes = new ArrayList<>();
+
+            attributes.add(new Attributes("height",vRecommend.getHeight()));
+            attributes.add(new Attributes("weight",vRecommend.getWeight()));
+            attributes.add(new Attributes("bfp",vRecommend.getBfp()));
+            attributes.add(new Attributes("bmi",vRecommend.getBmi()));
+            attributes.add(new Attributes("age",vRecommend.getAge()));
+            attributes.add(new Attributes("sex",vRecommend.getSex()));
+            attributes.add(new Attributes("workType",vRecommend.getWorkType()));
+            attributes.add(new Attributes("isVegetarian",vRecommend.getIsVegetarian()));
+            attributes.add(new Attributes("allergens",vRecommend.getAllergens()));
+            attributes.add(new Attributes("disease",vRecommend.getDisease()));
+            attributes.add(new Attributes("goalType",vRecommend.getGoalType()));
+            attributes.add(new Attributes("score",vRecommend.getScore()));
+
+            Person p = new Person();
+            p.username = vRecommend.getUsername();
+            p.AttriList = attributes;
+            users.add(p);
+        }
+        Recommend recommend = new Recommend();
+        List<Attributes> recommendList =recommend.recommend(username, users);
+        data.put("recommendList",recommendList);
         return Result.success(data);
     }
 }
