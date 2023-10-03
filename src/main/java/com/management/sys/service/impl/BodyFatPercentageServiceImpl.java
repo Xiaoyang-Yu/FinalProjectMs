@@ -26,4 +26,10 @@ public class BodyFatPercentageServiceImpl extends ServiceImpl<BodyFatPercentageM
     List<v_Recommend> bmiList= this.baseMapper.getBMPinfo(uid);
     return bmiList;
     }
+    public List<v_Recommend> getDiet(Integer uid){
+        Map<String, Object> data = new HashMap<>();
+        List<v_Recommend> bmiList= this.baseMapper.getDiet(uid);
+        return bmiList;
+    }
+
 }

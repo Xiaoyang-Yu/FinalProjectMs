@@ -6,6 +6,7 @@ import java.util.List;
 public class Person {
     public String username;
     public List<Attributes> AttriList = new ArrayList<>();
+    public String Recipe;
 
     public Person() {}
 
@@ -19,9 +20,9 @@ public class Person {
     }
 
     public Attributes find(String AttriName) {
-        for (Attributes movie : AttriList) {
-            if (movie.AttriName.equals(username)) {
-                return movie;
+        for (Attributes attr : AttriList) {
+            if (attr.AttriName.equals(username)) {
+                return attr;
             }
         }
         return null;

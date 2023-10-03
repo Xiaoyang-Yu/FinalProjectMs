@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface BodyFatPercentageMapper extends BaseMapper<BodyFatPercentage> {
     public List<v_Recommend> getBMPinfo(Integer uid);
-
+    public List<v_Recommend> getDiet(Integer uid);
 }

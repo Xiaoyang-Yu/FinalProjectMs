@@ -1,7 +1,9 @@
 package com.management.API;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.management.sys.entity.Attributes;
 import com.management.sys.entity.Person;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -59,7 +61,7 @@ public class Recommend {
     }
 
 
-    public List<Attributes> recommend(String username, List<Person> users) {
+    public Person recommend(String username, List<Person> users) {
         //找到最近邻
         Map<Double, String> distances = computeNearestNeighbor(username, users);
         Map.Entry<Double, String> last = new ArrayList<>(distances.entrySet()).get(distances.size()-1);
@@ -84,13 +86,59 @@ public class Recommend {
         System.out.println("用户的健康属性 -> " + userRatings.AttriList);
 
         //根据自己和邻居的电影计算推荐的电影
-        List<Attributes> recommendationMovies = new ArrayList<>();
-        for (Attributes movie : neighborRatings.AttriList) {
-            if (userRatings.find(movie.AttriName) == null) {
-                recommendationMovies.add(movie);
+//        List<Attributes> recommendationMovies = new ArrayList<>();
+//        for (Attributes movie : neighborRatings.AttriList) {
+//            if (userRatings.find(movie.AttriName) == null) {
+//                recommendationMovies.add(movie);
+//            }
+//        }
+        //Collections.sort(recommendationMovies);
+        return userRatings;
+    }
+
+    /**
+     * 在一个实体list中，找出属性是key，值为value的实体
+     *
+     * @param list
+     * @param key
+     * @param value
+     * @param <T>
+     * @return
+     */
+    public <T> T getObjectByKeyAndValue(List<T> list, String key){//, String value) {
+        if (null == list || list.isEmpty() || StringUtils.isEmpty(key)){// || StringUtils.isEmpty(value)) {
+            return null;
+        }
+        for (T item : list) {
+            try {
+                // 获取当前类
+                Class cls = item.getClass();
+                // 获得某个类的所有声明的字段，即包括public、private和proteced，但是不包括父类的申明字段
+                Field[] fields = cls.getDeclaredFields();
+                for (int i = 0; i < fields.length; i++) {
+                    Field f = fields[i];
+                    // 当未设置Field的setAccessible方法为true时，会在调用的时候进行访问安全检查，会抛出IllegalAccessException异常
+                    f.setAccessible(true);
+                    // 获取字段的名称
+                    String name = f.getName();
+                    // 如果key相等
+                    if (key.equals(name)) {
+                        // 如果值相等
+                        //if (f.get(item).equals(value)) {
+                            // 返回对应的类，结束循环
+                            return item;
+                        //}
+                        // 否则直接结束当前循环
+                        //else {
+                        //    break;
+                        //}
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        Collections.sort(recommendationMovies);
-        return recommendationMovies;
+        return null;
     }
+
 }

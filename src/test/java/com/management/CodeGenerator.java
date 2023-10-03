@@ -20,7 +20,7 @@ public class CodeGenerator {
         String password = "ZhXjlIOcMWJZow3x";
         String moduleName = "sys";
         String mapperLocation = "C:\\Users\\Fei\\IdeaProjects\\FinalProjectMs\\src\\main\\resources\\mapper\\" + moduleName;
-        String tables = "Body_Fat_Percentage"; //可以多张表，用，分割
+        String tables = "Body_Fat_Percentage,"; //可以多张表，用，分割
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {
                     builder.author("Xiaoyang") // 设置作者

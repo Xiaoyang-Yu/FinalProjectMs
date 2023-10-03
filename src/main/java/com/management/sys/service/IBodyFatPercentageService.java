@@ -18,4 +18,6 @@ import java.util.Map;
 public interface IBodyFatPercentageService extends IService<BodyFatPercentage> {
     List<v_Recommend> getBFP(Integer uid);
 
-    }
+    List<v_Recommend> getDiet(Integer uid);
+
+}

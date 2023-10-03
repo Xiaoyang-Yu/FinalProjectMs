@@ -97,36 +97,42 @@ public class BodyFatPercentageController {
         return Result.success(data);
     }
     @GetMapping("/recommendList")
-    public Result<Map<String, Object>> getBMPinfo(@RequestParam(value = "uid") Integer uid,
-                                                  @RequestParam(value = "username") String username){
+    public Result<Map<String, Object>> getBMPinfo(@RequestParam(value = "username") String username){
         Map<String, Object> data = new HashMap<>();
 
-        List<v_Recommend> vRecommendList = bodyfatpercentageService.getBFP(uid);
-        List<Person> users = new ArrayList<>();
-        for (v_Recommend vRecommend:vRecommendList) {
-            List<Attributes> attributes = new ArrayList<>();
+        List<v_Recommend> vRecommendList = bodyfatpercentageService.getBFP(0);
+            List<Person> users = new ArrayList<>();
+            for (v_Recommend vRecommend : vRecommendList) {
+                List<Attributes> attributes = new ArrayList<>();
+                attributes.add(new Attributes("height", vRecommend.getHeight()));
+                attributes.add(new Attributes("weight", vRecommend.getWeight()));
+                attributes.add(new Attributes("bfp", vRecommend.getBfp()));
+                attributes.add(new Attributes("bmi", vRecommend.getBmi()));
+                attributes.add(new Attributes("age", vRecommend.getAge()));
+                attributes.add(new Attributes("sex", vRecommend.getSex()));
+                attributes.add(new Attributes("workType", vRecommend.getWorkType()));
+                attributes.add(new Attributes("isVegetarian", vRecommend.getIsVegetarian()));
+                attributes.add(new Attributes("allergens", vRecommend.getAllergens()));
+                attributes.add(new Attributes("disease", vRecommend.getDisease()));
+                attributes.add(new Attributes("goalType", vRecommend.getGoalType()));
+                attributes.add(new Attributes("score", vRecommend.getScore()));
 
-            attributes.add(new Attributes("height",vRecommend.getHeight()));
-            attributes.add(new Attributes("weight",vRecommend.getWeight()));
-            attributes.add(new Attributes("bfp",vRecommend.getBfp()));
-            attributes.add(new Attributes("bmi",vRecommend.getBmi()));
-            attributes.add(new Attributes("age",vRecommend.getAge()));
-            attributes.add(new Attributes("sex",vRecommend.getSex()));
-            attributes.add(new Attributes("workType",vRecommend.getWorkType()));
-            attributes.add(new Attributes("isVegetarian",vRecommend.getIsVegetarian()));
-            attributes.add(new Attributes("allergens",vRecommend.getAllergens()));
-            attributes.add(new Attributes("disease",vRecommend.getDisease()));
-            attributes.add(new Attributes("goalType",vRecommend.getGoalType()));
-            attributes.add(new Attributes("score",vRecommend.getScore()));
-
-            Person p = new Person();
-            p.username = vRecommend.getUsername();
-            p.AttriList = attributes;
-            users.add(p);
-        }
-        Recommend recommend = new Recommend();
-        List<Attributes> recommendList =recommend.recommend(username, users);
-        data.put("recommendList",recommendList);
+                Person p = new Person();
+                p.username = vRecommend.getUsername();
+                p.AttriList = attributes;
+                p.Recipe=vRecommend.getRecipe();
+                users.add(p);
+            }
+            Recommend recommend = new Recommend();
+            Person person = recommend.recommend(username, users);
+            data.put("recommendList", person.Recipe);
+        return Result.success(data);
+    }
+    @GetMapping("/dietList")
+    public Result<Map<String, Object>> getDiet(@RequestParam(value = "uid") Integer uid){
+        Map<String, Object> data = new HashMap<>();
+        List<v_Recommend> vRecommendList = bodyfatpercentageService.getDiet(uid);
+        data.put("recommendList", vRecommendList);
         return Result.success(data);
     }
 }
