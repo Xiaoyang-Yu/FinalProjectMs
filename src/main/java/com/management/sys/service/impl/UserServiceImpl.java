@@ -83,6 +83,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if(loginUser != null){
             //User loginUser = JSON.parseObject(JSON.toJSONString(obj), User.class); //反序列化成user对象
             Map<String, Object> data = new HashMap<>();
+            data.put("uid", loginUser.getId());
             data.put("name", loginUser.getUsername());
             data.put("avatar", loginUser.getAvatar());
 
