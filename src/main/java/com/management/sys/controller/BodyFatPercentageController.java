@@ -132,7 +132,7 @@ public class BodyFatPercentageController {
     public Result<Map<String, Object>> getDiet(@RequestParam(value = "uid") Integer uid){
         Map<String, Object> data = new HashMap<>();
         List<v_Recommend> vRecommendList = bodyfatpercentageService.getDiet(uid);
-        data.put("recommendList", vRecommendList);
+        data.put("dietList", vRecommendList.get(0).getRecipe());
         return Result.success(data);
     }
 }
