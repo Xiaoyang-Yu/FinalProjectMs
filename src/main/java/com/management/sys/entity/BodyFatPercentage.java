@@ -23,49 +23,56 @@ public class BodyFatPercentage implements Serializable {
     private Integer id;
 
     private Integer uid;
-
+    /** 身高 单位：cm*/
     private Integer height;
-
+    /** 体重 单温：kg*/
     private Integer weight;
-
+    /** 体脂率 用户输入*/
     private Integer bfp;
 
-    /*身体质量指数(BMI) = (体重/2.205) / (身高/39.37)^2*/
+    /** 身体质量指数(BMI) = (体重/2.205) / (身高/39.37)^2 */
 
-    /*身体质量指数(BMI) < 18.5:	低于正常体重
+    /**
+      身体质量指数(BMI) < 18.5:	低于正常体重
       身体质量指数(BMI) >= 18.5 以及 < 25:	正常体重
       身体质量指数(BMI) >= 25 以及 < 30:	超重
       身体质量指数(BMI) >= 30 以及 < 35:	一类肥胖
       身体质量指数(BMI) >= 35 以及 < 40:	二类肥胖
-      身体质量指数(BMI) >= 40:	三类肥胖*/
+      身体质量指数(BMI) >= 40:	三类肥胖
+     */
     private Integer bmi;
 
     private LocalDateTime createTime;
 
     private Integer age;
-
+    /**  下拉框
+    * 1 male
+    * 0 female
+    */
     private Integer sex;
-    /**
-     * 1,office 2,outside
+    /** 工作类型
+     * 1,indoor 2,outdoor
      * 遇到map字段名字与数据库表中字段名不符合问题
      * 解决方案：将FieldName强制写成与数据库一致    @TableField("workType")
      */
     @TableField("workType")
     private Integer workType;
 
-    /**
+    /** 下拉框 是否是素食者
      * 1,true 0,false
      */
     @TableField("isVegetarian")
     private Boolean isVegetarian;
 
-    /**
-     * 1,peanut 2,milk
+    /** 过敏源
+     * 1.Nut and seed 2.Fruit 3.Vegetable 4.Milk
      */
     private Integer allergens;
 
     /**
-     * 1,high blood pressure
+     * 1,Atheromatous disease 2.Cancer 3.Chronic respiratory disease 4.Degenerative (including autoimmune) disease
+     * 5.Dementia 6.Diabetes 7.Infectious disease 8.Medically unexplained physical symptoms (MUPS)
+     * 9.Mental illness and substance abuse 10.Musculoskeletal
      */
     private Integer disease;
     public Integer getId() {
