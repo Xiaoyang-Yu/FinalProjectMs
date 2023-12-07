@@ -3,11 +3,9 @@ package com.management.sys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.management.API.Recommend;
+import com.management.API.RecommendNew;
 import com.management.common.vo.Result;
-import com.management.sys.entity.Attributes;
-import com.management.sys.entity.BodyFatPercentage;
-import com.management.sys.entity.Person;
-import com.management.sys.entity.v_Recommend;
+import com.management.sys.entity.*;
 import com.management.sys.service.IBodyFatPercentageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -128,11 +126,58 @@ public class BodyFatPercentageController {
             data.put("recommendList", person.Recipe);
         return Result.success(data);
     }
+
+    @GetMapping("/recommendListNew")
+    public Result<Map<String, Object>> getBMPinfoNew(@RequestParam(value = "username") String username){
+        Map<String, Object> data = new HashMap<>();
+
+        List<v_Recommend> vRecommendList = bodyfatpercentageService.getBFP(0);
+        List<Person> users = new ArrayList<>();
+        UserSet userSet = new UserSet();
+        for (v_Recommend vRecommend : vRecommendList) {
+            userSet.put(vRecommend.getUsername()).set("height", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("weight", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("bfp", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("bmi", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("age", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("sex", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("workType", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("isVegetarian", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("disease", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("goalType", vRecommend.getHeight()).create();
+            userSet.put(vRecommend.getUsername()).set("allergens", vRecommend.getHeight()).create();
+
+//            userSet.put(vRecommend.getUsername()).set("height"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("weight"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("bfp"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("bmi"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("age"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("sex"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("workType"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("isVegetarian"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("disease"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("goalType"+vRecommend.getHeight(), vRecommend.getHeight());
+//            userSet.put(vRecommend.getUsername()).set("allergens"+vRecommend.getHeight(), vRecommend.getHeight());
+//            Person p = new Person();
+//            p.username = vRecommend.getUsername();
+//            p.AttriList = attributes;
+//            p.Recipe=vRecommend.getRecipe();
+//            users.add(p);
+        }
+        RecommendNew recommend = new RecommendNew();
+        List<UserSet.Set> recommendList = recommend.recommend(username,userSet);
+
+        data.put("recommendList", recommendList);
+        return Result.success(data);
+    }
     @GetMapping("/dietList")
     public Result<Map<String, Object>> getDiet(@RequestParam(value = "uid") Integer uid){
         Map<String, Object> data = new HashMap<>();
         List<v_Recommend> vRecommendList = bodyfatpercentageService.getDiet(uid);
-        data.put("dietList", vRecommendList.get(0).getRecipe());
+        v_Recommend vRecommend = vRecommendList.get(0);
+        data.put("dietList", vRecommend.getRecipe());
+        data.put("id",vRecommend.getId());
+        data.put("pid",vRecommend.getPid());
         return Result.success(data);
     }
 }

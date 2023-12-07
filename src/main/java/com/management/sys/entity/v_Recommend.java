@@ -9,6 +9,7 @@ public class v_Recommend implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+    private Integer pid;
     private Integer uid;
     private Integer height;
     private Integer weight;
