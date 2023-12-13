@@ -95,10 +95,10 @@ public class BodyFatPercentageController {
         return Result.success(data);
     }
     @GetMapping("/recommendList")
-    public Result<Map<String, Object>> getBMPinfo(@RequestParam(value = "username") String username){
+    public Result<Map<String, Object>> getBMPinfo(@RequestParam(value = "uid") int uid){
         Map<String, Object> data = new HashMap<>();
-
-        List<v_Recommend> vRecommendList = bodyfatpercentageService.getBFP(0);
+        String username = "";
+        List<v_Recommend> vRecommendList = bodyfatpercentageService.getBFP(uid);
             List<Person> users = new ArrayList<>();
             for (v_Recommend vRecommend : vRecommendList) {
                 List<Attributes> attributes = new ArrayList<>();
@@ -119,11 +119,15 @@ public class BodyFatPercentageController {
                 p.username = vRecommend.getUsername();
                 p.AttriList = attributes;
                 p.Recipe=vRecommend.getRecipe();
+                if(vRecommend.getUid() == uid){
+                    username = vRecommend.getUsername();
+                }
                 users.add(p);
             }
             Recommend recommend = new Recommend();
             Person person = recommend.recommend(username, users);
             data.put("recommendList", person.Recipe);
+            data.put("username", person.username);
         return Result.success(data);
     }
 

@@ -32,7 +32,7 @@ public class Recommend {
             }
 
         }
-        System.out.println("该用户与其他用户的皮尔森相关系数 -> " + distances);
+        System.out.println("Pearson correlation coefficient between this user and other users -> " + distances);
         return distances;
     }
 
@@ -62,30 +62,30 @@ public class Recommend {
 
 
     public Person recommend(String username, List<Person> users) {
-        //找到最近邻
+
         Map<Double, String> distances = computeNearestNeighbor(username, users);
         Map.Entry<Double, String> last = new ArrayList<>(distances.entrySet()).get(distances.size()-1);
         String nearest = last.getValue();
-        System.out.println("最近邻 -> " + nearest);
+        System.out.println("Nearest -> " + nearest);
 
-        //找到最近邻看过，但是我们没看过的电影，计算推荐
+
         Person neighborRatings = new Person();
         for (Person user:users) {
             if (nearest.equals(user.username)) {
                 neighborRatings = user;
             }
         }
-        System.out.println("最近邻定健康属性 -> " + neighborRatings.AttriList);
+        System.out.println("Nearest neighbor health attributes -> " + neighborRatings.AttriList);
 
         Person userRatings = new Person();
         for (Person user:users) {
-            if (username.equals(user.username)) {
+            if (nearest.equals(user.username)) {
                 userRatings = user;
             }
         }
-        System.out.println("用户的健康属性 -> " + userRatings.AttriList);
+        System.out.println("User health attributes -> " + userRatings.AttriList);
 
-        //根据自己和邻居的电影计算推荐的电影
+
 //        List<Attributes> recommendationMovies = new ArrayList<>();
 //        for (Attributes movie : neighborRatings.AttriList) {
 //            if (userRatings.find(movie.AttriName) == null) {

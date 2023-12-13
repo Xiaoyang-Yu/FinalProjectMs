@@ -4,7 +4,7 @@
     <select id="getBMPinfo" parameterType="Integer" resultType="v_Recommend">
         SELECT a.id,a.uid,a.height,a.weight,a.bfp,a.bmi,a.age,a.sex,a.workType,a.isVegetarian,a.allergens,a.disease,b.goalType,b.score,c.recipe,d.username
         FROM Body_Fat_Percentage a, prompt b,diet c,user d
-        where IF (#{uid}=0, 1=1,a.uid=#{uid}) and a.id = b.bfpid AND b.bfpid=c.pid AND c.uid=d.id
+        where IF (0=0, 1=1,a.uid=#{uid}) and a.id = b.bfpid AND b.bfpid=c.pid AND c.uid=d.id
         order by a.uid desc
     </select>
     <select id="getDiet" parameterType="Integer" resultType="v_Recommend">
